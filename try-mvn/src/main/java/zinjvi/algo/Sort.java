@@ -24,6 +24,19 @@ public class Sort extends Loggable {
 
     }
 
+    public static <T> void insertionSort(T[] array, Comparator<T> comparator) {
+        for(int i=1; i < array.length; i++) {
+            for(int j=i; j > 0; j--) {
+                int prev = j - 1;
+                if(comparator.compare(array[prev], array[j]) > 0) {
+                    swap(array, prev, j);
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
     private static <T> void swap(T[] array, int i, int j) {
         T temp = array[i];
         array[i] = array[j];

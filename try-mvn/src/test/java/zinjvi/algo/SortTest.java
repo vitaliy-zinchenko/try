@@ -31,4 +31,25 @@ public class SortTest {
         Assert.assertArrayEquals(new Integer[]{1, 2, 3, 5, 6, 7}, array);
     }
 
+    @Test
+    public void insertionTest() {
+        Integer[] array = new Integer[]{3, 2, 1};
+        Sort.insertionSort(array, INTEGER_COMPARATOR);
+        Assert.assertArrayEquals(new Integer[]{1, 2, 3}, array);
+    }
+
+    @Test
+    public void insertionTest2() {
+        Integer[] array = new Integer[]{1, 2, 3};
+        Sort.insertionSort(array, INTEGER_COMPARATOR);
+        Assert.assertArrayEquals(new Integer[]{1, 2, 3}, array);
+    }
+
+    @Test
+    public void insertionTest3() {
+        Integer[] array = new Integer[]{1, 3, 2, 6, 5, 7};
+        Sort.insertionSort(array, INTEGER_COMPARATOR);
+        Assert.assertArrayEquals(new Integer[]{1, 2, 3, 5, 6, 7}, array);
+    }
+
 }
