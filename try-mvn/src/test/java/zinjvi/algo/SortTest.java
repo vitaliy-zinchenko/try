@@ -74,10 +74,32 @@ public class SortTest {
     }
 
     @Test
+    public void mergeTest4() {
+        Integer[] array = new Integer[]{1, 2, 4, 3, 5, 6};
+        Sort.merge(array, INTEGER_COMPARATOR, 0, 2, 5);
+        Assert.assertArrayEquals(new Integer[]{1, 2, 3, 4, 5, 6}, array);
+    }
+
+    @Test
     public void mergeSortTest() {
         Integer[] array = new Integer[]{3, 2, 5, 1, 6, 4};
         Sort.mergeSort(array, INTEGER_COMPARATOR);
         Assert.assertArrayEquals(new Integer[]{1, 2, 3, 4, 5, 6}, array);
+    }
+
+    @Test
+    public void partitionTest() {
+        Integer[] array = new Integer[]{3, 2, 7, 8, 5, 1, 6, 4};
+        int partition = Sort.partition(array, INTEGER_COMPARATOR, 1, 6);
+        Assert.assertEquals(4, partition);
+        Assert.assertArrayEquals(new Integer[]{3, 2, 5, 1, 6, 8, 7, 4}, array);
+    }
+
+    @Test
+    public void quickSortTest() {
+        Integer[] array = new Integer[]{3, 2, 7, 8, 5, 1, 6, 4};
+        Sort.quickSort(array, INTEGER_COMPARATOR);
+        Assert.assertArrayEquals(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8}, array);
     }
 
 }

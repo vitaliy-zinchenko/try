@@ -40,6 +40,7 @@ public class Sort extends Loggable {
     }
 
     private static <T> void swap(T[] array, int i, int j) {
+        log("Swap: %s, i=%d, j=%d", Arrays.toString(array), i, j);
         T temp = array[i];
         array[i] = array[j];
         array[j] = temp;
@@ -87,5 +88,47 @@ public class Sort extends Loggable {
         T[] array = (T[]) new Object[length];
         System.arraycopy(src, srcStart, array, 0, length);
         return array;
+    }
+
+    // QUICK SORT
+
+    public static <T> void quickSort(T[] array, Comparator<T> comparator) {
+        quickSort(array, comparator, 0, array.length - 1);
+    }
+
+    private static <T> void quickSort(T[] array, Comparator<T> comparator, int left, int right) {
+        if(right - left <= 1) {
+            return;
+        }
+        int center = partition(array, comparator, left, right);
+        quickSort(array, comparator, left, center - 1);
+        quickSort(array, comparator, center + 1, right);
+    }
+
+    /**
+     *    | left     | right |  unknown  |
+     *    | leftEnd->|    i->|           |-pivot (1 item)
+     *    |          |       |           |
+     *
+     */
+    public static <T> int partition(T[] array, Comparator<T> comparator, int left, int right) {
+        log("Partition begin: %s, %d, %d", Arrays.toString(array), left, right);
+        int pivot = right;
+        T pivotItem = array[pivot];
+        int leftEnd = left;
+        for(int i = left; i < right; i++) {
+            log("Start iteration: %s, leftEnd=%d, i=%d", Arrays.toString(array), leftEnd, i);
+            if (comparator.compare(array[i], pivotItem) < 0) {
+                if (leftEnd != i) {
+                    swap(array, leftEnd, i);
+                }
+                leftEnd++;
+            }
+            log("End iteration:   %s, leftEnd=%d, i=%d", Arrays.toString(array), leftEnd, i);
+            log("-----------");
+        }
+        swap(array, leftEnd, right);
+        log("Partition finish: %d", leftEnd);
+        return leftEnd;
     }
 }
