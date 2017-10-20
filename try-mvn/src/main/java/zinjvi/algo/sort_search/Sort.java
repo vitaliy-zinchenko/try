@@ -1,4 +1,4 @@
-package zinjvi.algo;
+package zinjvi.algo.sort_search;
 
 import java.util.Arrays;
 
@@ -131,4 +131,58 @@ public class Sort extends Loggable {
         log("Partition finish: %d", leftEnd);
         return leftEnd;
     }
+
+    public static int[] countSort(int[] array) {
+        int[] count = count(array);
+        int[] last = last(count);
+        int[] next = next(last);
+        return rearrange(array, next);
+    }
+
+    protected static int[] count(int[] array) {
+        //find max value
+        int max = -1;
+        for(int i=0; i < array.length; i++) {
+            int item = array[i];
+            if (max < item)
+                max = item;
+        }
+
+        //build count array
+        int[] count = new int[max + 1];
+        for(int i=0; i < array.length; i++) {
+            count[array[i]]++;
+        }
+        return count;
+    }
+
+    protected static int[] last(int[] count) {
+        int[] last = new int[count.length];
+        int current = -1;
+        for(int i=0; i < count.length; i++) {
+            current = count[i] + current;
+            last[i] = current;
+        }
+        return last;
+    }
+
+    protected static int[] next(int[] last) {
+        int[] next = new int[last.length];
+        next[0] = 0;
+        for(int i=1; i < last.length; i++) {
+            next[i] = last[i-1] + 1;
+        }
+        return next;
+    }
+
+    private static int[] rearrange(int[] array, int[] next) {
+        int[] result = new int[array.length];
+        for(int i=0; i < array.length; i++) {
+            int item = array[i];
+            int index = next[item]++;
+            result[index] = item;
+        }
+        return result;
+    }
+
 }

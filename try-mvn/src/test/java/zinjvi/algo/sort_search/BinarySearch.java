@@ -1,4 +1,4 @@
-package zinjvi.algo;
+package zinjvi.algo.sort_search;
 
 import org.junit.Assert;
 import org.junit.Test;
